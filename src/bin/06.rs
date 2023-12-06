@@ -1,5 +1,5 @@
-use itertools::Itertools;
 use aoc_util::parse::ParseOps;
+use itertools::Itertools;
 advent_of_code::solution!(6);
 
 pub struct Input {
@@ -15,7 +15,6 @@ pub fn parse(input: &str) -> Input {
         races: times.iter().zip(dist).map(|(&t, d)| [t, d]).collect(),
     }
 }
-
 
 pub fn part_one(input: &str) -> Option<u64> {
     let input = parse(input);
@@ -34,10 +33,12 @@ pub fn part_two(input: &str) -> Option<u64> {
     let time = get_number(&input, 0);
     let dist = get_number(&input, 1);
 
-    Some((0..time)
-        .map(|t| (time - t) * t)
-        .filter(|d| d > &dist)
-        .count() as u64)
+    Some(
+        (0..time)
+            .map(|t| (time - t) * t)
+            .filter(|d| d > &dist)
+            .count() as u64,
+    )
 }
 
 fn get_number(input: &Input, index: usize) -> u64 {

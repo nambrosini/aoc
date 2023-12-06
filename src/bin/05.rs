@@ -57,7 +57,6 @@ pub fn parse(input: &str) -> Input {
     Input { seeds, stages }
 }
 
-
 fn map_seeds(stages: &[Vec<[u64; 3]>], seeds: &[u64]) -> u64 {
     let mut seeds = seeds.to_vec();
     for stage in stages {

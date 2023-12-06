@@ -4,12 +4,14 @@ advent_of_code::solution!(2);
 pub fn part_one(input: &str) -> Option<usize> {
     let input = parse(input);
     let limits = HashMap::from([(Color::Red, 12), (Color::Green, 13), (Color::Blue, 14)]);
-    Some(input
-        .iter()
-        .enumerate()
-        .filter(|(_, g)| g.iter().all(|h| check_hand(&limits, h)))
-        .map(|(i, _)| i + 1)
-        .sum())
+    Some(
+        input
+            .iter()
+            .enumerate()
+            .filter(|(_, g)| g.iter().all(|h| check_hand(&limits, h)))
+            .map(|(i, _)| i + 1)
+            .sum(),
+    )
 }
 
 pub fn part_two(input: &str) -> Option<u32> {

@@ -11,11 +11,13 @@ pub fn part_two(input: &str) -> Option<u32> {
         "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     ];
 
-    Some(input
-        .lines()
-        .map(|l| numbers_to_digits(numbers, l))
-        .map(calculate)
-        .sum())
+    Some(
+        input
+            .lines()
+            .map(|l| numbers_to_digits(numbers, l))
+            .map(calculate)
+            .sum(),
+    )
 }
 
 fn calculate(l: String) -> u32 {
@@ -63,7 +65,9 @@ mod tests {
 
     #[test]
     fn test_part_two() {
-        let result = part_two(&advent_of_code::template::read_file_part("examples", DAY, 2));
+        let result = part_two(&advent_of_code::template::read_file_part(
+            "examples", DAY, 2,
+        ));
         assert_eq!(result, Some(281));
     }
 }

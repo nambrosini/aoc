@@ -1,13 +1,15 @@
-use std::collections::HashMap;
 use itertools::Itertools;
+use std::collections::HashMap;
 advent_of_code::solution!(4);
 
 pub fn part_one(input: &str) -> Option<u32> {
     let input = parse(input);
-    Some(input
-        .iter()
-        .map(|x| if *x == 0 { 0 } else { 2u32.pow(x - 1) })
-        .sum())
+    Some(
+        input
+            .iter()
+            .map(|x| if *x == 0 { 0 } else { 2u32.pow(x - 1) })
+            .sum(),
+    )
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
