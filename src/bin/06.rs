@@ -1,5 +1,5 @@
 use itertools::Itertools;
-use advent_of_code::util::parse::ParseOps;
+use aoc_util::parse::ParseOps;
 advent_of_code::solution!(6);
 
 pub struct Input {

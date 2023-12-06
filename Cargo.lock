@@ -6,9 +6,16 @@ version = 3
 name = "advent_of_code"
 version = "0.9.4"
 dependencies = [
+ "aoc-util",
  "itertools",
  "pico-args",
 ]
+
+[[package]]
+name = "aoc-util"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6009f7a30dd9870ffe2977c13dffd85bb5950ad7d11160203341bdd24ad7adc2"
 
 [[package]]
 name = "either"

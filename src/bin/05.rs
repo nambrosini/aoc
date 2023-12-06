@@ -1,8 +1,7 @@
 advent_of_code::solution!(5);
 
-use itertools::Itertools;
-use advent_of_code::util::iter::ChunkOps;
-use advent_of_code::util::parse::ParseOps;
+use aoc_util::iter::ChunkOps;
+use aoc_util::parse::ParseOps;
 
 pub fn part_one(input: &str) -> Option<u64> {
     let input = parse(input);
@@ -12,44 +11,32 @@ pub fn part_one(input: &str) -> Option<u64> {
 
 pub fn part_two(input: &str) -> Option<u64> {
     let input = parse(input);
-    let mut current = &mut Vec::new();
-    let mut next = &mut Vec::new();
 
-    // Convert input pairs to ranges.
-    for [start, length] in input.seeds.iter().copied().chunk::<2>() {
-        current.push([start, start + length]);
-    }
+    let mut reverse = 1;
+    loop {
+        let mut current_reverse = reverse;
+        'next_map: for i in (0..input.stages.len()).rev() {
+            let mut changed = false;
+            for s in &input.stages[i] {
+                if changed {
+                    continue 'next_map;
+                }
+                let i = s[0];
+                let k = i + s[2] - 1;
 
-    for stage in &input.stages {
-        'outer: for &[s1, e1] in current.iter() {
-            // Split ranges that overlap into 1, 2 or 3 new ranges.
-            // Assumes that seed ranges will only overlap with a single range in each stage.
-            for &[dest, s2, e2] in stage {
-                // x1 and x2 are the possible overlap.
-                let x1 = s1.max(s2);
-                let x2 = e1.min(e2);
-
-                if x1 < x2 {
-                    if s1 < x1 {
-                        next.push([s1, x1]);
-                    }
-                    if x2 < e1 {
-                        next.push([x2, e1]);
-                    }
-                    // Move overlap to new destination.
-                    next.push([x1 - s2 + dest, x2 - s2 + dest]);
-                    continue 'outer;
+                if current_reverse >= i && current_reverse <= k {
+                    current_reverse = current_reverse + s[1] - s[0];
+                    changed = true
                 }
             }
-            // No intersection with any range so pass to next stage unchanged.
-            next.push([s1, e1]);
         }
-
-        (current, next) = (next, current);
-        next.clear();
+        for seeds in input.seeds.chunks(2) {
+            if current_reverse >= seeds[0] && current_reverse < seeds[1] + seeds[0] {
+                return Some(reverse);
+            }
+        }
+        reverse += 1;
     }
-
-    Some(current.iter().min_by_key(|r| r[0]).unwrap()[0])
 }
 
 pub struct Input {
