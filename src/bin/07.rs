@@ -1,32 +1,41 @@
+use itertools::Itertools;
 use std::cmp::Ordering;
 use std::collections::HashMap;
-use itertools::Itertools;
 
 advent_of_code::solution!(7);
 
-const CARDS_ORDER: [char; 13] = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
-const CARDS_ORDER_JOKER: [char; 13] = ['A', 'K', 'Q', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J'];
+const CARDS_ORDER: [char; 13] = [
+    'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2',
+];
+const CARDS_ORDER_JOKER: [char; 13] = [
+    'A', 'K', 'Q', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J',
+];
 
 #[derive(Debug)]
 pub struct Input {
-    vals: Vec<Hand>
+    vals: Vec<Hand>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 struct Hand {
     cards: Vec<Card>,
     weight: u32,
-    bid: u64
+    bid: u64,
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
 struct Card {
-    card: char
+    card: char,
 }
 
 impl Input {
     fn new(hands: Vec<Hand>, order: [char; 13]) -> Self {
-        let hands = hands.iter().sorted_by(|a, b| cmp(a, b, order)).rev().cloned().collect();
+        let hands = hands
+            .iter()
+            .sorted_by(|a, b| cmp(a, b, order))
+            .rev()
+            .cloned()
+            .collect();
         Self { vals: hands }
     }
 }
@@ -66,7 +75,7 @@ impl Hand {
         for card in cards {
             if card.card == 'J' {
                 jokers += 1;
-                continue
+                continue;
             }
             let entry = map.entry(card).or_insert(0);
             *entry += 1;
@@ -111,10 +120,16 @@ fn cmp(a: &Hand, b: &Hand, order: [char; 13]) -> Ordering {
 }
 
 fn parse(input: &str, f: fn(&[Card]) -> u32, order: [char; 13]) -> Input {
-    let vals = input.lines()
+    let vals = input
+        .lines()
         .map(|hand| {
             let mut split = hand.split_ascii_whitespace();
-            let cards: Vec<Card> = split.next().unwrap().chars().map(|c| Card { card: c}).collect();
+            let cards: Vec<Card> = split
+                .next()
+                .unwrap()
+                .chars()
+                .map(|c| Card { card: c })
+                .collect();
             let bid = split.next().unwrap().parse().unwrap();
             Hand::new(cards, bid, f)
         })
@@ -124,18 +139,26 @@ fn parse(input: &str, f: fn(&[Card]) -> u32, order: [char; 13]) -> Input {
 
 pub fn part_one(input: &str) -> Option<u64> {
     let input = parse(input, Hand::calc_weight, CARDS_ORDER);
-    Some(input.vals.iter()
-        .enumerate()
-        .map(|(i, e)| (i + 1) as u64 * e.bid)
-        .sum())
+    Some(
+        input
+            .vals
+            .iter()
+            .enumerate()
+            .map(|(i, e)| (i + 1) as u64 * e.bid)
+            .sum(),
+    )
 }
 
 pub fn part_two(input: &str) -> Option<u64> {
     let input = parse(input, Hand::calc_weight_2, CARDS_ORDER_JOKER);
-    Some(input.vals.iter()
-        .enumerate()
-        .map(|(i, e)| (i + 1) as u64 * e.bid)
-        .sum())
+    Some(
+        input
+            .vals
+            .iter()
+            .enumerate()
+            .map(|(i, e)| (i + 1) as u64 * e.bid)
+            .sum(),
+    )
 }
 
 #[cfg(test)]
@@ -144,13 +167,15 @@ mod tests {
 
     #[test]
     fn test_part_one() {
-        let result = part_one(&advent_of_code::template::read_file("examples", DAY ));
+        let result = part_one(&advent_of_code::template::read_file("examples", DAY));
         assert_eq!(result, Some(6440));
     }
 
     #[test]
     fn test_part_two() {
-        let result = part_two(&advent_of_code::template::read_file_part("examples", DAY, 2));
+        let result = part_two(&advent_of_code::template::read_file_part(
+            "examples", DAY, 2,
+        ));
         assert_eq!(result, Some(6350));
     }
 }
