@@ -1,6 +1,7 @@
-use itertools::Itertools;
 use std::cmp::Ordering;
 use std::collections::HashMap;
+
+use itertools::Itertools;
 
 advent_of_code::solution!(7);
 
@@ -84,7 +85,7 @@ impl Hand {
             31 => 4,
             22 => 5,
             21 => 6,
-            _ => 7
+            _ => 7,
         }
     }
 }
@@ -110,11 +111,7 @@ fn parse(input: &str, f: fn(&[Card]) -> u32, order: [Card; 13]) -> Input {
         .lines()
         .map(|hand| {
             let mut split = hand.split_ascii_whitespace();
-            let cards: Vec<Card> = split
-                .next()
-                .unwrap()
-                .chars()
-                .collect();
+            let cards: Vec<Card> = split.next().unwrap().chars().collect();
             let bid = split.next().unwrap().parse().unwrap();
             Hand::new(cards, bid, f)
         })

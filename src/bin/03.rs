@@ -1,4 +1,5 @@
 use std::collections::HashSet;
+
 advent_of_code::solution!(3);
 
 pub fn parse(input: &str) -> Vec<Vec<char>> {

@@ -1,6 +1,6 @@
-advent_of_code::solution!(1);
-
 use itertools::Itertools;
+
+advent_of_code::solution!(1);
 
 pub fn part_one(input: &str) -> Option<u32> {
     Some(input.lines().map(|l| calculate(l.to_string())).sum())

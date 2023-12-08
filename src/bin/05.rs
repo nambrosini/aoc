@@ -1,7 +1,7 @@
-advent_of_code::solution!(5);
-
 use aoc_util::iter::ChunkOps;
 use aoc_util::parse::ParseOps;
+
+advent_of_code::solution!(5);
 
 pub fn part_one(input: &str) -> Option<u64> {
     let input = parse(input);
