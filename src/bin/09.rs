@@ -55,7 +55,7 @@ fn calc_diffs(list: &[i32]) -> Vec<i32> {
     list[1..]
         .iter()
         .zip(&list[..list.len() - 1])
-        .map(|(a, b)| b - a)
+        .map(|(a, b)| a - b)
         .collect()
 }
 
