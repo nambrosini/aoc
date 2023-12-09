@@ -14,19 +14,16 @@ fn parse(input: &str) -> Input {
 pub fn part_one(input: &str) -> Option<i32> {
     let vals = parse(input).vals;
     let mut res = 0;
-    for v in vals {
+    for v in &vals {
         let mut lasts = vec![v[v.len() - 1]];
         let mut list = v.clone();
+
         while !list.iter().all(|&x| x == 0) {
             list = calc_diffs(&list);
             lasts.push(list[list.len() - 1]);
         }
-        let mut v = 0;
 
-        for l in lasts.iter().rev() {
-            v += l;
-        }
-        res += v;
+        res += lasts.iter().sum::<i32>()
     }
     Some(res)
 }
@@ -34,29 +31,24 @@ pub fn part_one(input: &str) -> Option<i32> {
 pub fn part_two(input: &str) -> Option<i32> {
     let vals = parse(input).vals;
     let mut res = 0;
-    for v in vals {
+
+    for v in &vals {
         let mut firsts = vec![v[0]];
         let mut list = v.clone();
+
         while !list.iter().all(|&x| x == 0) {
             list = calc_diffs(&list);
             firsts.push(list[0]);
         }
-        let mut v = 0;
 
-        for l in firsts.iter().rev() {
-            v = l - v;
-        }
-        res += v;
+        res += firsts.iter().rev()
+            .fold(0, |acc, x| x - acc);
     }
     Some(res)
 }
 
 fn calc_diffs(list: &[i32]) -> Vec<i32> {
-    list[1..]
-        .iter()
-        .zip(&list[..list.len() - 1])
-        .map(|(a, b)| a - b)
-        .collect()
+    list.windows(2).map(|w| w[1] - w[0]).collect()
 }
 
 #[cfg(test)]
