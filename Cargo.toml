@@ -19,3 +19,6 @@ itertools = "0.12.0"
 aoc-util = "0.1.2"
 num = "0.4.1"
 lazy_static = { version = "1.4.0", features = [] }
+strum = "0.25.0"
+strum_macros = "0.25.3"
+log = "0.4.20"

@@ -41,8 +41,7 @@ pub fn part_two(input: &str) -> Option<i32> {
             firsts.push(list[0]);
         }
 
-        res += firsts.iter().rev()
-            .fold(0, |acc, x| x - acc);
+        res += firsts.iter().rev().fold(0, |acc, x| x - acc);
     }
     Some(res)
 }

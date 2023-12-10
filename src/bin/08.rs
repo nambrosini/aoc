@@ -64,18 +64,8 @@ pub fn part_two(input: &str) -> Option<u64> {
         for c in current.iter() {
             let node = &input.map[c];
 
-            let n = match dir {
-                'L' => &node.0,
-                'R' => &node.1,
-                _ => unreachable!(),
-            }
-            .to_string();
-
-            if n.ends_with('Z') {
-                steps.push(count);
-            } else {
-                next.push(n);
-            }
+            let n = next_node(dir, node);
+            has_finished(&mut next, count, &mut steps, n);
         }
         current = next.clone();
         next.clear();
@@ -84,6 +74,23 @@ pub fn part_two(input: &str) -> Option<u64> {
     }
 
     Some(steps.iter().fold(1u64, |a, b| a.lcm(b)))
+}
+
+fn has_finished(next: &mut Vec<String>, count: u64, steps: &mut Vec<u64>, n: String) {
+    if n.ends_with('Z') {
+        steps.push(count);
+    } else {
+        next.push(n);
+    }
+}
+
+fn next_node(dir: char, node: &(String, String)) -> String {
+    match dir {
+        'L' => &node.0,
+        'R' => &node.1,
+        _ => unreachable!(),
+    }
+    .to_string()
 }
 
 fn get_starting_nodes(map: &HashMap<String, (String, String)>) -> Vec<String> {
