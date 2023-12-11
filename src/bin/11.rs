@@ -1,17 +1,17 @@
-use std::fmt::{Display, Formatter};
 use advent_of_code::util::grid::{Grid, Parse};
 use advent_of_code::util::position::Position;
+use std::fmt::{Display, Formatter};
 advent_of_code::solution!(11);
 
 struct Input {
-    vals: Grid<Pixel>
+    vals: Grid<Pixel>,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Default)]
 enum Pixel {
     #[default]
     Empty,
-    Galaxy
+    Galaxy,
 }
 
 impl From<char> for Pixel {
@@ -19,22 +19,28 @@ impl From<char> for Pixel {
         match value {
             '.' => Pixel::Empty,
             '#' => Pixel::Galaxy,
-            _ => unreachable!()
+            _ => unreachable!(),
         }
     }
 }
 
 impl Display for Pixel {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", match self {
-            Pixel::Empty => '.',
-            Pixel::Galaxy => '#'
-        })
+        write!(
+            f,
+            "{}",
+            match self {
+                Pixel::Empty => '.',
+                Pixel::Galaxy => '#',
+            }
+        )
     }
 }
 
 fn parse(input: &str) -> Input {
-    Input { vals: Grid::parse(input) }
+    Input {
+        vals: Grid::parse(input),
+    }
 }
 
 pub fn part_one(input: &str) -> Option<i64> {
@@ -61,7 +67,6 @@ fn calc_distance_sum(galaxies: Vec<Position>) -> i64 {
 
     sum
 }
-
 
 fn manhattan(g1: &Position, g2: &Position) -> i64 {
     (g1.x - g2.x).abs() + (g1.y - g2.y).abs()

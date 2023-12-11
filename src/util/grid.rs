@@ -39,7 +39,8 @@ where
 
 impl<T: From<char>> Parse for Grid<T> {
     fn parse(input: &str) -> Self {
-        input.lines()
+        input
+            .lines()
             .map(|c| c.chars().map(|c| c.into()).collect())
             .collect()
     }
