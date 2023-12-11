@@ -1,6 +1,6 @@
 use ::std::convert::Into;
 use advent_of_code::util::direction::Direction;
-use advent_of_code::util::grid::Grid;
+use advent_of_code::util::grid::{Grid, Parse};
 use advent_of_code::util::position::Position;
 use strum::IntoEnumIterator;
 advent_of_code::solution!(10);
@@ -11,7 +11,7 @@ struct Input {
 
 fn parse(input: &str) -> Input {
     Input {
-        grid: input.lines().map(|l| l.chars().collect()).collect(),
+        grid: Grid::parse(input),
     }
 }
 
