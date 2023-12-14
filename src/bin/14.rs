@@ -1,8 +1,7 @@
 use std::collections::hash_map::DefaultHasher;
+use std::collections::HashSet;
 use std::hash::Hash;
 use std::hash::Hasher;
-
-use binary_search_tree::BinarySearchTree;
 
 use advent_of_code::util::grid::Grid;
 
@@ -24,27 +23,29 @@ pub fn part_one(input: &str) -> Option<usize> {
 
 pub fn part_two(input: &str) -> Option<usize> {
     let mut grid = parse(input).grid;
-    let mut visited: BinarySearchTree<u64> = BinarySearchTree::new();
+    let mut visited: HashSet<u64> = HashSet::new();
 
-    let cicle;
+    let cycle;
 
-    let mut first_duplicate: Option<(usize, u64, Grid<char>)> = None;
+    let mut first_duplicate: Option<(usize, u64)> = None;
     let mut i = 0;
 
     loop {
-        cycle(&mut grid);
+        step(&mut grid);
 
-        let mut hasher = DefaultHasher::new();
-        grid.hash(&mut hasher);
-        let hash = hasher.finish();
+        let hash = {
+            let mut hasher = DefaultHasher::new();
+            grid.hash(&mut hasher);
+            hasher.finish()
+        };
 
         if let Some(first) = &first_duplicate {
             if first.1 == hash {
-                cicle = i;
+                cycle = i;
                 break;
             }
         } else if visited.contains(&hash) {
-            first_duplicate = Some((i, hash, grid.clone()));
+            first_duplicate = Some((i, hash));
         } else {
             visited.insert(hash);
         }
@@ -52,16 +53,17 @@ pub fn part_two(input: &str) -> Option<usize> {
     }
 
     let first = first_duplicate.unwrap();
-    let cycles = (1000000000 - first.0) % (cicle - first.0);
+    let cycles = (1000000000 - first.0) % (cycle - first.0);
 
     for _ in 1..cycles {
-        cycle(&mut grid);
+        step(&mut grid);
     }
 
     Some(calc_weight(&grid))
 }
 
-fn cycle(grid: &mut Grid<char>) {
+
+fn step(grid: &mut Grid<char>) {
     tilt_north(grid);
     tilt_west(grid);
     tilt_south(grid);
