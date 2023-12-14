@@ -22,7 +22,6 @@ where
             }
             println!()
         }
-        println!()
     }
 
     fn string(&self) -> String {
@@ -33,7 +32,7 @@ where
             }
             res.push('\n');
         }
-        res
+        res[..res.len() - 1].to_string()
     }
 }
 
