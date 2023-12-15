@@ -62,7 +62,6 @@ pub fn part_two(input: &str) -> Option<usize> {
     Some(calc_weight(&grid))
 }
 
-
 fn step(grid: &mut Grid<char>) {
     tilt_north(grid);
     tilt_west(grid);
