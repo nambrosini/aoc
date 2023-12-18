@@ -1,58 +1,75 @@
-use std::ops::Add;
+use std::ops::{Add, Mul, Sub};
+use std::str::FromStr;
 
-use crate::util::direction::Direction;
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub struct Position {
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
+pub struct Vec2 {
     pub x: i64,
     pub y: i64,
 }
 
-impl Position {
-    pub fn new(x: i64, y: i64) -> Self {
-        Position { x, y }
-    }
+pub const fn v(x: i64, y: i64) -> Vec2 {
+    Vec2::new(x, y)
 }
 
-impl Position {
+impl Vec2 {
+    pub const NORTH: Self = v(0, -1);
+    pub const EAST: Self = v(1, 0);
+    pub const SOUTH: Self = v(0, 1);
+    pub const WEST: Self = v(-1, 0);
+
+    pub const DIRECTIONS: [Self; 4] = [Self::NORTH, Self::EAST, Self::SOUTH, Self::WEST];
+
+    pub const fn new(x: i64, y: i64) -> Self {
+        Self { x, y }
+    }
+
+    pub const fn abs(&self) -> i64 {
+        self.x.abs() + self.y.abs()
+    }
+
     pub fn x(&self) -> usize {
         self.x as usize
     }
+
     pub fn y(&self) -> usize {
-        self.y as usize
+        self.x as usize
     }
 }
 
-impl Add<Position> for Position {
-    type Output = Position;
+impl FromStr for Vec2 {
+    type Err = ();
 
-    fn add(self, rhs: Position) -> Self::Output {
-        Self {
-            x: self.x + rhs.x,
-            y: self.y + rhs.y,
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "U" => Ok(Vec2::NORTH),
+            "R" => Ok(Vec2::EAST),
+            "D" => Ok(Vec2::SOUTH),
+            "L" => Ok(Vec2::WEST),
+            _ => Err(()),
         }
     }
 }
 
-impl From<&Direction> for Position {
-    fn from(value: &Direction) -> Self {
-        match value {
-            Direction::North => Position::new(-1, 0),
-            Direction::South => Position::new(1, 0),
-            Direction::East => Position::new(0, 1),
-            Direction::West => Position::new(0, -1),
-        }
+impl Add<Vec2> for Vec2 {
+    type Output = Self;
+
+    fn add(self, rhs: Vec2) -> Self::Output {
+        v(self.x + rhs.x, self.y + rhs.y)
     }
 }
 
-impl From<(usize, usize)> for Position {
-    fn from(value: (usize, usize)) -> Self {
-        Position::new(value.0 as i64, value.1 as i64)
+impl Sub<Vec2> for Vec2 {
+    type Output = Self;
+
+    fn sub(self, rhs: Vec2) -> Self::Output {
+        v(self.x - rhs.x, self.y - rhs.y)
     }
 }
 
-impl From<Direction> for Position {
-    fn from(value: Direction) -> Self {
-        (&value).into()
+impl Mul<i64> for Vec2 {
+    type Output = Vec2;
+
+    fn mul(self, rhs: i64) -> Self::Output {
+        v(self.x * rhs, self.y * rhs)
     }
 }
