@@ -1,4 +1,5 @@
 use aoc_util::parse::ParseOps;
+
 advent_of_code::solution!(12);
 
 struct Input {

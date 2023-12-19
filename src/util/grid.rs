@@ -1,3 +1,4 @@
+use crate::util::position::Vec2;
 use std::fmt::Display;
 
 pub type Grid<T> = Vec<Vec<T>>;
@@ -5,6 +6,10 @@ pub type Grid<T> = Vec<Vec<T>>;
 pub trait Print {
     fn print(&self);
     fn string(&self) -> String;
+}
+
+pub trait Contains<T> {
+    fn contains(&self, point: T) -> bool;
 }
 
 pub trait Parse {
@@ -22,6 +27,7 @@ where
             }
             println!()
         }
+        println!()
     }
 
     fn string(&self) -> String {
@@ -33,6 +39,12 @@ where
             res.push('\n');
         }
         res[..res.len() - 1].to_string()
+    }
+}
+
+impl<T> Contains<&Vec2> for Grid<T> {
+    fn contains(&self, pos: &Vec2) -> bool {
+        pos.x >= 0 && pos.x < self.len() as i64 && pos.y >= 0 && pos.y < self[0].len() as i64
     }
 }
 

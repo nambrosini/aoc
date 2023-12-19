@@ -1,8 +1,6 @@
-use ::std::convert::Into;
-use advent_of_code::util::direction::Direction;
 use advent_of_code::util::grid::{Grid, Parse};
-use advent_of_code::util::position::Position;
-use strum::IntoEnumIterator;
+use advent_of_code::util::position::{v, Vec2};
+
 advent_of_code::solution!(10);
 
 struct Input {
@@ -21,7 +19,7 @@ pub fn part_one(input: &str) -> Option<usize> {
 
     let mut count = usize::MAX;
 
-    for dir in Direction::iter() {
+    for dir in Vec2::DIRECTIONS {
         if let Some(steps) = travel(&grid, &start, &dir, 1) {
             count = count.min(steps);
         }
@@ -35,7 +33,7 @@ pub fn part_two(input: &str) -> Option<i64> {
 
     let mut lop = vec![];
 
-    for dir in Direction::iter() {
+    for dir in Vec2::DIRECTIONS {
         let mut l = vec![];
         if let Ok(()) = save_loop(&grid, &start, &dir, &mut l) {
             lop = l;
@@ -48,44 +46,48 @@ pub fn part_two(input: &str) -> Option<i64> {
 
     for i in 0..grid.len() {
         for j in 0..grid[0].len() {
-            if !lop.contains(&Position::new(i as i64, j as i64)) {
+            if !lop.contains(&v(i as i64, j as i64)) {
                 grid[i][j] = '.';
             }
         }
     }
 
-    let d1: Direction = Position::new(
+    let d1: Vec2 = v(
         lop[0].x - lop[lop.len() - 1].x,
         lop[0].y - lop[lop.len() - 1].y,
-    )
-    .into();
-    let d2: Direction = Position::new(lop[1].x - lop[0].x, lop[1].y - lop[0].y).into();
+    );
+    let d2: Vec2 = v(lop[1].x - lop[0].x, lop[1].y - lop[0].y);
 
     grid[start.x()][start.y()] = match d1 {
-        Direction::North => match d2 {
-            Direction::North => '|',
-            Direction::South => unreachable!(),
-            Direction::East => 'L',
-            Direction::West => 'J',
+        Vec2::NORTH => match d2 {
+            Vec2::NORTH => '|',
+            Vec2::SOUTH => unreachable!(),
+            Vec2::EAST => 'L',
+            Vec2::WEST => 'J',
+            _ => unreachable!(),
         },
-        Direction::South => match d2 {
-            Direction::North => unreachable!(),
-            Direction::South => '|',
-            Direction::East => 'F',
-            Direction::West => '7',
+        Vec2::SOUTH => match d2 {
+            Vec2::NORTH => unreachable!(),
+            Vec2::SOUTH => '|',
+            Vec2::EAST => 'F',
+            Vec2::WEST => '7',
+            _ => unreachable!(),
         },
-        Direction::East => match d2 {
-            Direction::North => 'J',
-            Direction::South => '7',
-            Direction::East => '-',
-            Direction::West => unreachable!(),
+        Vec2::EAST => match d2 {
+            Vec2::NORTH => 'J',
+            Vec2::SOUTH => '7',
+            Vec2::EAST => '-',
+            Vec2::WEST => unreachable!(),
+            _ => unreachable!(),
         },
-        Direction::West => match d2 {
-            Direction::North => 'L',
-            Direction::South => 'F',
-            Direction::East => unreachable!(),
-            Direction::West => '-',
+        Vec2::WEST => match d2 {
+            Vec2::NORTH => 'L',
+            Vec2::SOUTH => 'F',
+            Vec2::EAST => unreachable!(),
+            Vec2::WEST => '-',
+            _ => unreachable!(),
         },
+        _ => unreachable!(),
     };
 
     let mut total = 0;
@@ -118,14 +120,8 @@ pub fn part_two(input: &str) -> Option<i64> {
     Some(total)
 }
 
-fn travel(
-    grid: &Grid<char>,
-    position: &Position,
-    direction: &Direction,
-    step: usize,
-) -> Option<usize> {
-    let dir: Position = direction.into();
-    let new_position = *position + dir;
+fn travel(grid: &Grid<char>, position: &Vec2, direction: &Vec2, step: usize) -> Option<usize> {
+    let new_position = *position + *direction;
     if !is_contained(grid, &new_position) {
         return None;
     }
@@ -135,24 +131,24 @@ fn travel(
     let c = grid[new_position.x()][new_position.y()];
     let new_direction = match c {
         '|' | '-' => *direction,
-        'L' => match direction {
-            Direction::South => Direction::East,
-            Direction::West => Direction::North,
+        'L' => match *direction {
+            Vec2::SOUTH => Vec2::EAST,
+            Vec2::WEST => Vec2::NORTH,
             _ => return None,
         },
-        'J' => match direction {
-            Direction::South => Direction::West,
-            Direction::East => Direction::North,
+        'J' => match *direction {
+            Vec2::SOUTH => Vec2::WEST,
+            Vec2::EAST => Vec2::NORTH,
             _ => return None,
         },
-        '7' => match direction {
-            Direction::North => Direction::West,
-            Direction::East => Direction::South,
+        '7' => match *direction {
+            Vec2::NORTH => Vec2::WEST,
+            Vec2::EAST => Vec2::SOUTH,
             _ => return None,
         },
-        'F' => match direction {
-            Direction::North => Direction::East,
-            Direction::West => Direction::South,
+        'F' => match *direction {
+            Vec2::NORTH => Vec2::EAST,
+            Vec2::WEST => Vec2::SOUTH,
             _ => return None,
         },
         _ => return None,
@@ -160,12 +156,12 @@ fn travel(
     travel(grid, &new_position, &new_direction, step + 1)
 }
 
-fn get_start(grid: &Grid<char>) -> Position {
-    let mut start = Position::new(0, 0);
+fn get_start(grid: &Grid<char>) -> Vec2 {
+    let mut start = Vec2::new(0, 0);
     for (i, row) in grid.iter().enumerate() {
         for (j, e) in row.iter().enumerate() {
             if e == &'S' {
-                start = Position::new(i as i64, j as i64);
+                start = Vec2::new(i as i64, j as i64);
             }
         }
     }
@@ -174,12 +170,11 @@ fn get_start(grid: &Grid<char>) -> Position {
 
 fn save_loop(
     grid: &Grid<char>,
-    position: &Position,
-    direction: &Direction,
-    l: &mut Vec<Position>,
+    position: &Vec2,
+    direction: &Vec2,
+    l: &mut Vec<Vec2>,
 ) -> Result<(), ()> {
-    let dir: Position = direction.into();
-    let new_position = *position + dir;
+    let new_position = *position + *direction;
     if !is_contained(grid, &new_position) {
         return Err(());
     }
@@ -189,24 +184,24 @@ fn save_loop(
     let c = grid[new_position.x()][new_position.y()];
     let new_direction = match c {
         '|' | '-' => *direction,
-        'L' => match direction {
-            Direction::South => Direction::East,
-            Direction::West => Direction::North,
+        'L' => match *direction {
+            Vec2::SOUTH => Vec2::EAST,
+            Vec2::WEST => Vec2::NORTH,
             _ => return Err(()),
         },
-        'J' => match direction {
-            Direction::South => Direction::West,
-            Direction::East => Direction::North,
+        'J' => match *direction {
+            Vec2::SOUTH => Vec2::WEST,
+            Vec2::EAST => Vec2::NORTH,
             _ => return Err(()),
         },
-        '7' => match direction {
-            Direction::North => Direction::West,
-            Direction::East => Direction::South,
+        '7' => match *direction {
+            Vec2::NORTH => Vec2::WEST,
+            Vec2::EAST => Vec2::SOUTH,
             _ => return Err(()),
         },
-        'F' => match direction {
-            Direction::North => Direction::East,
-            Direction::West => Direction::South,
+        'F' => match *direction {
+            Vec2::NORTH => Vec2::EAST,
+            Vec2::WEST => Vec2::SOUTH,
             _ => return Err(()),
         },
         _ => return Err(()),
@@ -215,7 +210,7 @@ fn save_loop(
     save_loop(grid, &new_position, &new_direction, l)
 }
 
-fn is_contained(grid: &[Vec<char>], new_position: &Position) -> bool {
+fn is_contained(grid: &[Vec<char>], new_position: &Vec2) -> bool {
     new_position.x >= 0
         && new_position.x() < grid.len()
         && new_position.y >= 0

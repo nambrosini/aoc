@@ -1,6 +1,8 @@
-use advent_of_code::util::grid::{Grid, Parse};
-use advent_of_code::util::position::Position;
 use std::fmt::{Display, Formatter};
+
+use advent_of_code::util::grid::{Grid, Parse};
+use advent_of_code::util::position::Vec2;
+
 advent_of_code::solution!(11);
 
 struct Input {
@@ -55,7 +57,7 @@ pub fn part_two(input: &str) -> Option<i64> {
     Some(calc_distance_sum(galaxies))
 }
 
-fn calc_distance_sum(galaxies: Vec<Position>) -> i64 {
+fn calc_distance_sum(galaxies: Vec<Vec2>) -> i64 {
     let mut sum = 0;
 
     for (i, g1) in galaxies.iter().enumerate() {
@@ -68,11 +70,11 @@ fn calc_distance_sum(galaxies: Vec<Position>) -> i64 {
     sum
 }
 
-fn manhattan(g1: &Position, g2: &Position) -> i64 {
+fn manhattan(g1: &Vec2, g2: &Vec2) -> i64 {
     (g1.x - g2.x).abs() + (g1.y - g2.y).abs()
 }
 
-fn expand_galaxies(map: &[Position], times: i64) -> Vec<Position> {
+fn expand_galaxies(map: &[Vec2], times: i64) -> Vec<Vec2> {
     let mut map = map.to_vec();
     let mut new_map = vec![];
     let max = map.iter().max_by_key(|pos| pos.x).unwrap().x;
@@ -81,7 +83,7 @@ fn expand_galaxies(map: &[Position], times: i64) -> Vec<Position> {
     for x in 0..=max {
         if map.iter().any(|pos| pos.x == x) {
             for pos in map.iter().filter(|pos| pos.x == x) {
-                new_map.push(Position::new(new_x, pos.y));
+                new_map.push(Vec2::new(new_x, pos.y));
             }
         } else {
             new_x += times - 1;
@@ -95,7 +97,7 @@ fn expand_galaxies(map: &[Position], times: i64) -> Vec<Position> {
     for y in 0..=max {
         if map.iter().any(|pos| pos.y == y) {
             for pos in map.iter().filter(|pos| pos.y == y) {
-                new_map.push(Position::new(pos.x, new_y));
+                new_map.push(Vec2::new(pos.x, new_y));
             }
         } else {
             new_y += times - 1;
@@ -106,12 +108,12 @@ fn expand_galaxies(map: &[Position], times: i64) -> Vec<Position> {
     new_map
 }
 
-fn get_galaxies_pos(grid: &Grid<Pixel>) -> Vec<Position> {
+fn get_galaxies_pos(grid: &Grid<Pixel>) -> Vec<Vec2> {
     let mut galaxies = vec![];
     for (i, row) in grid.iter().enumerate() {
         for (j, e) in row.iter().enumerate() {
             if e == &Pixel::Galaxy {
-                galaxies.push(Position::new(i as i64, j as i64));
+                galaxies.push(Vec2::new(i as i64, j as i64));
             }
         }
     }

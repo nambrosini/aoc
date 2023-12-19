@@ -32,7 +32,11 @@ impl Vec2 {
     }
 
     pub fn y(&self) -> usize {
-        self.x as usize
+        self.y as usize
+    }
+
+    pub fn distance(&self, other: &Self) -> u64 {
+        (self.x - other.x).unsigned_abs() + (self.y - other.y).unsigned_abs()
     }
 }
 
