@@ -38,7 +38,7 @@ where
             }
             res.push('\n');
         }
-        res.to_string()
+        res[..res.len() - 1].to_string()
     }
 }
 
