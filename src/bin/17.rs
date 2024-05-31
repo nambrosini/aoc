@@ -41,7 +41,7 @@ fn find_path<const MIN: u64, const MAX: u64>(grid: &Matrix<u64>) -> u64 {
         |state| (end.0.abs_diff(state.position.0) + end.1.abs_diff(state.position.1)) as u64,
         |state| state.position == end && state.distance >= MIN,
     )
-        .expect("Path to end exists");
+    .expect("Path to end exists");
 
     path.1
 }
@@ -112,7 +112,6 @@ struct State {
     direction: (isize, isize),
     distance: u64,
 }
-
 
 #[cfg(test)]
 mod tests {

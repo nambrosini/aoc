@@ -1,6 +1,6 @@
-use std::collections::{HashMap, VecDeque};
 use derive_more::Constructor;
 use itertools::Itertools;
+use std::collections::{HashMap, VecDeque};
 advent_of_code::solution!(19);
 
 type Rules = HashMap<String, Vec<String>>;
@@ -27,7 +27,10 @@ fn parse_rules(s: &str) -> Rules {
     for line in s.lines() {
         let chunks: Vec<&str> = line.split('{').collect();
         let index = chunks[0].to_string();
-        let chunks = chunks[1][..chunks[1].len() - 1].split(',').map(|s| s.to_string()).collect();
+        let chunks = chunks[1][..chunks[1].len() - 1]
+            .split(',')
+            .map(|s| s.to_string())
+            .collect();
         rules.insert(index, chunks);
     }
     rules
@@ -45,7 +48,7 @@ impl Calc for Part {
 
 struct Input {
     rules: Rules,
-    parts: Vec<Part>
+    parts: Vec<Part>,
 }
 
 fn parse(input: &str) -> Input {
@@ -59,7 +62,8 @@ fn parse(input: &str) -> Input {
 pub fn part_one(input: &str) -> Option<u64> {
     let input = parse(input);
 
-    let rating: u64 = input.parts
+    let rating: u64 = input
+        .parts
         .iter()
         .filter(|p| validate_part(p, &input.rules))
         .map(|p| p.calc_rating())
