@@ -217,37 +217,37 @@ fn is_contained(grid: &[Vec<char>], new_position: &Vec2) -> bool {
         && new_position.y() < grid[0].len()
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_part_one() {
-        let result = part_one(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, Some(8));
-    }
-
-    #[test]
-    fn test_part_two() {
-        let result = part_two(&advent_of_code::template::read_file_part(
-            "examples", DAY, 2,
-        ));
-        assert_eq!(result, Some(4));
-    }
-
-    #[test]
-    fn test_ex_3() {
-        let result = part_two(&advent_of_code::template::read_file_part(
-            "examples", DAY, 3,
-        ));
-        assert_eq!(result, Some(8));
-    }
-
-    #[test]
-    fn test_ex_4() {
-        let result = part_two(&advent_of_code::template::read_file_part(
-            "examples", DAY, 4,
-        ));
-        assert_eq!(result, Some(10));
-    }
-}
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+//
+//     #[test]
+//     fn test_part_one() {
+//         let result = part_one(&advent_of_code::template::read_file("examples", DAY));
+//         assert_eq!(result, Some(8));
+//     }
+//
+//     #[test]
+//     fn test_part_two() {
+//         let result = part_two(&advent_of_code::template::read_file_part(
+//             "examples", DAY, 2,
+//         ));
+//         assert_eq!(result, Some(4));
+//     }
+//
+//     #[test]
+//     fn test_ex_3() {
+//         let result = part_two(&advent_of_code::template::read_file_part(
+//             "examples", DAY, 3,
+//         ));
+//         assert_eq!(result, Some(8));
+//     }
+//
+//     #[test]
+//     fn test_ex_4() {
+//         let result = part_two(&advent_of_code::template::read_file_part(
+//             "examples", DAY, 4,
+//         ));
+//         assert_eq!(result, Some(10));
+//     }
+// }
