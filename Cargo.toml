@@ -1,0 +1,689 @@
+[package]
+name = "adventofcode"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+itertools = "0.14"
+md-5 = "0.10"
+serde_json = "1"
+regex = "1"
+fnv = "1"
+pathfinding = "4"
+
+[[bin]]
+name = "aoc2019_day01"
+path = "src/bin/aoc2019/day01.rs"
+
+[[bin]]
+name = "aoc2019_day02"
+path = "src/bin/aoc2019/day02.rs"
+
+[[bin]]
+name = "aoc2019_day03"
+path = "src/bin/aoc2019/day03.rs"
+
+[[bin]]
+name = "aoc2019_day04"
+path = "src/bin/aoc2019/day04.rs"
+
+[[bin]]
+name = "aoc2019_day05"
+path = "src/bin/aoc2019/day05.rs"
+
+[[bin]]
+name = "aoc2019_day06"
+path = "src/bin/aoc2019/day06.rs"
+
+[[bin]]
+name = "aoc2019_day07"
+path = "src/bin/aoc2019/day07.rs"
+
+[[bin]]
+name = "aoc2019_day08"
+path = "src/bin/aoc2019/day08.rs"
+
+[[bin]]
+name = "aoc2019_day09"
+path = "src/bin/aoc2019/day09.rs"
+
+[[bin]]
+name = "aoc2019_day10"
+path = "src/bin/aoc2019/day10.rs"
+
+[[bin]]
+name = "aoc2019_day11"
+path = "src/bin/aoc2019/day11.rs"
+
+[[bin]]
+name = "aoc2019_day12"
+path = "src/bin/aoc2019/day12.rs"
+
+[[bin]]
+name = "aoc2019_day13"
+path = "src/bin/aoc2019/day13.rs"
+
+[[bin]]
+name = "aoc2019_day14"
+path = "src/bin/aoc2019/day14.rs"
+
+[[bin]]
+name = "aoc2019_day15"
+path = "src/bin/aoc2019/day15.rs"
+
+[[bin]]
+name = "aoc2019_day17"
+path = "src/bin/aoc2019/day17.rs"
+
+[[bin]]
+name = "aoc2019_day18"
+path = "src/bin/aoc2019/day18.rs"
+
+[[bin]]
+name = "aoc2019_day19"
+path = "src/bin/aoc2019/day19.rs"
+
+[[bin]]
+name = "aoc2019_day22"
+path = "src/bin/aoc2019/day22.rs"
+
+[[bin]]
+name = "aoc2019_day23"
+path = "src/bin/aoc2019/day23.rs"
+
+[[bin]]
+name = "aoc2019_day24"
+path = "src/bin/aoc2019/day24.rs"
+
+[[bin]]
+name = "aoc2015_day01"
+path = "src/bin/aoc2015/day01.rs"
+
+[[bin]]
+name = "aoc2015_day02"
+path = "src/bin/aoc2015/day02.rs"
+
+[[bin]]
+name = "aoc2015_day03"
+path = "src/bin/aoc2015/day03.rs"
+
+[[bin]]
+name = "aoc2015_day04"
+path = "src/bin/aoc2015/day04.rs"
+
+[[bin]]
+name = "aoc2015_day05"
+path = "src/bin/aoc2015/day05.rs"
+
+[[bin]]
+name = "aoc2015_day06"
+path = "src/bin/aoc2015/day06.rs"
+
+[[bin]]
+name = "aoc2015_day07"
+path = "src/bin/aoc2015/day07.rs"
+
+[[bin]]
+name = "aoc2015_day08"
+path = "src/bin/aoc2015/day08.rs"
+
+[[bin]]
+name = "aoc2015_day09"
+path = "src/bin/aoc2015/day09.rs"
+
+[[bin]]
+name = "aoc2015_day10"
+path = "src/bin/aoc2015/day10.rs"
+
+[[bin]]
+name = "aoc2015_day11"
+path = "src/bin/aoc2015/day11.rs"
+
+[[bin]]
+name = "aoc2015_day12"
+path = "src/bin/aoc2015/day12.rs"
+
+[[bin]]
+name = "aoc2015_day13"
+path = "src/bin/aoc2015/day13.rs"
+
+[[bin]]
+name = "aoc2015_day14"
+path = "src/bin/aoc2015/day14.rs"
+
+[[bin]]
+name = "aoc2015_day15"
+path = "src/bin/aoc2015/day15.rs"
+
+[[bin]]
+name = "aoc2015_day16"
+path = "src/bin/aoc2015/day16.rs"
+
+[[bin]]
+name = "aoc2015_day17"
+path = "src/bin/aoc2015/day17.rs"
+
+[[bin]]
+name = "aoc2015_day18"
+path = "src/bin/aoc2015/day18.rs"
+
+[[bin]]
+name = "aoc2015_day19"
+path = "src/bin/aoc2015/day19.rs"
+
+[[bin]]
+name = "aoc2015_day20"
+path = "src/bin/aoc2015/day20.rs"
+
+[[bin]]
+name = "aoc2015_day21"
+path = "src/bin/aoc2015/day21.rs"
+
+[[bin]]
+name = "aoc2015_day22"
+path = "src/bin/aoc2015/day22.rs"
+
+[[bin]]
+name = "aoc2015_day23"
+path = "src/bin/aoc2015/day23.rs"
+
+[[bin]]
+name = "aoc2015_day24"
+path = "src/bin/aoc2015/day24.rs"
+
+[[bin]]
+name = "aoc2015_day25"
+path = "src/bin/aoc2015/day25.rs"
+
+
+[[bin]]
+name = "aoc2016_day01"
+path = "src/bin/aoc2016/day01.rs"
+
+[[bin]]
+name = "aoc2016_day02"
+path = "src/bin/aoc2016/day02.rs"
+
+[[bin]]
+name = "aoc2016_day03"
+path = "src/bin/aoc2016/day03.rs"
+
+[[bin]]
+name = "aoc2016_day04"
+path = "src/bin/aoc2016/day04.rs"
+
+[[bin]]
+name = "aoc2016_day05"
+path = "src/bin/aoc2016/day05.rs"
+
+[[bin]]
+name = "aoc2016_day06"
+path = "src/bin/aoc2016/day06.rs"
+
+[[bin]]
+name = "aoc2016_day07"
+path = "src/bin/aoc2016/day07.rs"
+
+[[bin]]
+name = "aoc2016_day08"
+path = "src/bin/aoc2016/day08.rs"
+
+[[bin]]
+name = "aoc2016_day09"
+path = "src/bin/aoc2016/day09.rs"
+
+[[bin]]
+name = "aoc2016_day10"
+path = "src/bin/aoc2016/day10.rs"
+
+[[bin]]
+name = "aoc2016_day11"
+path = "src/bin/aoc2016/day11.rs"
+
+[[bin]]
+name = "aoc2016_day12"
+path = "src/bin/aoc2016/day12.rs"
+
+[[bin]]
+name = "aoc2016_day13"
+path = "src/bin/aoc2016/day13.rs"
+
+[[bin]]
+name = "aoc2016_day14"
+path = "src/bin/aoc2016/day14.rs"
+
+[[bin]]
+name = "aoc2016_day15"
+path = "src/bin/aoc2016/day15.rs"
+
+[[bin]]
+name = "aoc2016_day16"
+path = "src/bin/aoc2016/day16.rs"
+
+[[bin]]
+name = "aoc2016_day17"
+path = "src/bin/aoc2016/day17.rs"
+
+[[bin]]
+name = "aoc2016_day18"
+path = "src/bin/aoc2016/day18.rs"
+
+[[bin]]
+name = "aoc2016_day19"
+path = "src/bin/aoc2016/day19.rs"
+
+[[bin]]
+name = "aoc2016_day20"
+path = "src/bin/aoc2016/day20.rs"
+
+[[bin]]
+name = "aoc2016_day21"
+path = "src/bin/aoc2016/day21.rs"
+
+[[bin]]
+name = "aoc2016_day22"
+path = "src/bin/aoc2016/day22.rs"
+
+[[bin]]
+name = "aoc2016_day23"
+path = "src/bin/aoc2016/day23.rs"
+
+[[bin]]
+name = "aoc2016_day24"
+path = "src/bin/aoc2016/day24.rs"
+
+[[bin]]
+name = "aoc2016_day25"
+path = "src/bin/aoc2016/day25.rs"
+
+[[bin]]
+name = "aoc2017_day01"
+path = "src/bin/aoc2017/day01.rs"
+
+[[bin]]
+name = "aoc2017_day02"
+path = "src/bin/aoc2017/day02.rs"
+
+[[bin]]
+name = "aoc2017_day03"
+path = "src/bin/aoc2017/day03.rs"
+
+[[bin]]
+name = "aoc2017_day04"
+path = "src/bin/aoc2017/day04.rs"
+
+[[bin]]
+name = "aoc2017_day05"
+path = "src/bin/aoc2017/day05.rs"
+
+[[bin]]
+name = "aoc2017_day06"
+path = "src/bin/aoc2017/day06.rs"
+
+[[bin]]
+name = "aoc2017_day07"
+path = "src/bin/aoc2017/day07.rs"
+
+[[bin]]
+name = "aoc2017_day08"
+path = "src/bin/aoc2017/day08.rs"
+
+[[bin]]
+name = "aoc2017_day09"
+path = "src/bin/aoc2017/day09.rs"
+
+[[bin]]
+name = "aoc2017_day10"
+path = "src/bin/aoc2017/day10.rs"
+
+[[bin]]
+name = "aoc2017_day11"
+path = "src/bin/aoc2017/day11.rs"
+
+[[bin]]
+name = "aoc2017_day12"
+path = "src/bin/aoc2017/day12.rs"
+
+[[bin]]
+name = "aoc2017_day13"
+path = "src/bin/aoc2017/day13.rs"
+
+[[bin]]
+name = "aoc2017_day14"
+path = "src/bin/aoc2017/day14.rs"
+
+[[bin]]
+name = "aoc2017_day15"
+path = "src/bin/aoc2017/day15.rs"
+
+[[bin]]
+name = "aoc2017_day16"
+path = "src/bin/aoc2017/day16.rs"
+
+[[bin]]
+name = "aoc2017_day17"
+path = "src/bin/aoc2017/day17.rs"
+
+[[bin]]
+name = "aoc2017_day18"
+path = "src/bin/aoc2017/day18.rs"
+
+[[bin]]
+name = "aoc2017_day19"
+path = "src/bin/aoc2017/day19.rs"
+
+[[bin]]
+name = "aoc2017_day20"
+path = "src/bin/aoc2017/day20.rs"
+
+[[bin]]
+name = "aoc2017_day21"
+path = "src/bin/aoc2017/day21.rs"
+
+[[bin]]
+name = "aoc2017_day22"
+path = "src/bin/aoc2017/day22.rs"
+
+[[bin]]
+name = "aoc2017_day23"
+path = "src/bin/aoc2017/day23.rs"
+
+[[bin]]
+name = "aoc2018_day01"
+path = "src/bin/aoc2018/day01.rs"
+
+[[bin]]
+name = "aoc2018_day02"
+path = "src/bin/aoc2018/day02.rs"
+
+[[bin]]
+name = "aoc2018_day03"
+path = "src/bin/aoc2018/day03.rs"
+
+[[bin]]
+name = "aoc2018_day04"
+path = "src/bin/aoc2018/day04.rs"
+
+[[bin]]
+name = "aoc2018_day05"
+path = "src/bin/aoc2018/day05.rs"
+
+[[bin]]
+name = "aoc2018_day06"
+path = "src/bin/aoc2018/day06.rs"
+
+[[bin]]
+name = "aoc2018_day07"
+path = "src/bin/aoc2018/day07.rs"
+
+[[bin]]
+name = "aoc2018_day08"
+path = "src/bin/aoc2018/day08.rs"
+
+[[bin]]
+name = "aoc2018_day09"
+path = "src/bin/aoc2018/day09.rs"
+
+[[bin]]
+name = "aoc2018_day10"
+path = "src/bin/aoc2018/day10.rs"
+
+[[bin]]
+name = "aoc2018_day11"
+path = "src/bin/aoc2018/day11.rs"
+
+[[bin]]
+name = "aoc2018_day12"
+path = "src/bin/aoc2018/day12.rs"
+
+[[bin]]
+name = "aoc2018_day13"
+path = "src/bin/aoc2018/day13.rs"
+
+[[bin]]
+name = "aoc2018_day14"
+path = "src/bin/aoc2018/day14.rs"
+
+[[bin]]
+name = "aoc2018_day16"
+path = "src/bin/aoc2018/day16.rs"
+
+[[bin]]
+name = "aoc2018_day18"
+path = "src/bin/aoc2018/day18.rs"
+
+[[bin]]
+name = "aoc2018_day19"
+path = "src/bin/aoc2018/day19.rs"
+
+[[bin]]
+name = "aoc2018_day25"
+path = "src/bin/aoc2018/day25.rs"
+
+[[bin]]
+name = "aoc2020_day01"
+path = "src/bin/aoc2020/day01.rs"
+
+[[bin]]
+name = "aoc2020_day02"
+path = "src/bin/aoc2020/day02.rs"
+
+[[bin]]
+name = "aoc2020_day03"
+path = "src/bin/aoc2020/day03.rs"
+
+[[bin]]
+name = "aoc2020_day04"
+path = "src/bin/aoc2020/day04.rs"
+
+[[bin]]
+name = "aoc2020_day05"
+path = "src/bin/aoc2020/day05.rs"
+
+[[bin]]
+name = "aoc2020_day06"
+path = "src/bin/aoc2020/day06.rs"
+
+[[bin]]
+name = "aoc2020_day07"
+path = "src/bin/aoc2020/day07.rs"
+
+[[bin]]
+name = "aoc2020_day10"
+path = "src/bin/aoc2020/day10.rs"
+
+[[bin]]
+name = "aoc2020_day11"
+path = "src/bin/aoc2020/day11.rs"
+
+[[bin]]
+name = "aoc2020_day12"
+path = "src/bin/aoc2020/day12.rs"
+
+[[bin]]
+name = "aoc2020_day13"
+path = "src/bin/aoc2020/day13.rs"
+
+[[bin]]
+name = "aoc2020_day14"
+path = "src/bin/aoc2020/day14.rs"
+
+[[bin]]
+name = "aoc2020_day15"
+path = "src/bin/aoc2020/day15.rs"
+
+[[bin]]
+name = "aoc2020_day16"
+path = "src/bin/aoc2020/day16.rs"
+
+[[bin]]
+name = "aoc2020_day17"
+path = "src/bin/aoc2020/day17.rs"
+
+[[bin]]
+name = "aoc2020_day18"
+path = "src/bin/aoc2020/day18.rs"
+
+[[bin]]
+name = "aoc2020_day19"
+path = "src/bin/aoc2020/day19.rs"
+
+[[bin]]
+name = "aoc2020_day20"
+path = "src/bin/aoc2020/day20.rs"
+
+[[bin]]
+name = "aoc2020_day21"
+path = "src/bin/aoc2020/day21.rs"
+
+[[bin]]
+name = "aoc2020_day22"
+path = "src/bin/aoc2020/day22.rs"
+
+[[bin]]
+name = "aoc2020_day23"
+path = "src/bin/aoc2020/day23.rs"
+
+[[bin]]
+name = "aoc2020_day24"
+path = "src/bin/aoc2020/day24.rs"
+
+[[bin]]
+name = "aoc2020_day25"
+path = "src/bin/aoc2020/day25.rs"
+
+[[bin]]
+name = "aoc2021_day01"
+path = "src/bin/aoc2021/day01.rs"
+
+[[bin]]
+name = "aoc2021_day02"
+path = "src/bin/aoc2021/day02.rs"
+
+[[bin]]
+name = "aoc2021_day03"
+path = "src/bin/aoc2021/day03.rs"
+
+[[bin]]
+name = "aoc2021_day04"
+path = "src/bin/aoc2021/day04.rs"
+
+[[bin]]
+name = "aoc2021_day05"
+path = "src/bin/aoc2021/day05.rs"
+
+[[bin]]
+name = "aoc2021_day06"
+path = "src/bin/aoc2021/day06.rs"
+
+[[bin]]
+name = "aoc2021_day07"
+path = "src/bin/aoc2021/day07.rs"
+
+[[bin]]
+name = "aoc2021_day08"
+path = "src/bin/aoc2021/day08.rs"
+
+[[bin]]
+name = "aoc2021_day09"
+path = "src/bin/aoc2021/day09.rs"
+
+[[bin]]
+name = "aoc2021_day10"
+path = "src/bin/aoc2021/day10.rs"
+
+[[bin]]
+name = "aoc2021_day11"
+path = "src/bin/aoc2021/day11.rs"
+
+[[bin]]
+name = "aoc2021_day12"
+path = "src/bin/aoc2021/day12.rs"
+
+[[bin]]
+name = "aoc2021_day13"
+path = "src/bin/aoc2021/day13.rs"
+
+[[bin]]
+name = "aoc2022_day01"
+path = "src/bin/aoc2022/day01.rs"
+
+[[bin]]
+name = "aoc2022_day02"
+path = "src/bin/aoc2022/day02.rs"
+
+[[bin]]
+name = "aoc2022_day03"
+path = "src/bin/aoc2022/day03.rs"
+
+[[bin]]
+name = "aoc2022_day04"
+path = "src/bin/aoc2022/day04.rs"
+
+[[bin]]
+name = "aoc2022_day05"
+path = "src/bin/aoc2022/day05.rs"
+
+[[bin]]
+name = "aoc2022_day06"
+path = "src/bin/aoc2022/day06.rs"
+
+[[bin]]
+name = "aoc2022_day07"
+path = "src/bin/aoc2022/day07.rs"
+
+[[bin]]
+name = "aoc2022_day08"
+path = "src/bin/aoc2022/day08.rs"
+
+[[bin]]
+name = "aoc2022_day09"
+path = "src/bin/aoc2022/day09.rs"
+
+[[bin]]
+name = "aoc2022_day10"
+path = "src/bin/aoc2022/day10.rs"
+
+[[bin]]
+name = "aoc2022_day11"
+path = "src/bin/aoc2022/day11.rs"
+
+[[bin]]
+name = "aoc2022_day12"
+path = "src/bin/aoc2022/day12.rs"
+
+[[bin]]
+name = "aoc2022_day13"
+path = "src/bin/aoc2022/day13.rs"
+
+[[bin]]
+name = "aoc2022_day14"
+path = "src/bin/aoc2022/day14.rs"
+
+[[bin]]
+name = "aoc2022_day15"
+path = "src/bin/aoc2022/day15.rs"
+
+[[bin]]
+name = "aoc2023_day01"
+path = "src/bin/aoc2023/day01.rs"
+
+[[bin]]
+name = "aoc2023_day02"
+path = "src/bin/aoc2023/day02.rs"
+
+[[bin]]
+name = "aoc2023_day03"
+path = "src/bin/aoc2023/day03.rs"
+
+[[bin]]
+name = "aoc2023_day04"
+path = "src/bin/aoc2023/day04.rs"
+
+[[bin]]
+name = "aoc2023_day05"
+path = "src/bin/aoc2023/day05.rs"
+
+[[bin]]
+name = "aoc2023_day06"
+path = "src/bin/aoc2023/day06.rs"
