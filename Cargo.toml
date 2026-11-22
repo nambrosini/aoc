@@ -813,3 +813,11 @@ path = "src/bin/aoc2025/day07.rs"
 [[bin]]
 name = "aoc2025_day08"
 path = "src/bin/aoc2025/day08.rs"
+
+[[bin]]
+name = "aoc2025_day09"
+path = "src/bin/aoc2025/day09.rs"
+
+[[bin]]
+name = "aoc2025_day10"
+path = "src/bin/aoc2025/day10.rs"
