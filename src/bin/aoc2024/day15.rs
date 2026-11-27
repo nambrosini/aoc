@@ -49,7 +49,7 @@ fn part1(input: &str) -> i64 {
 fn move_robot(grid: &mut Grid<char>, dir: Direction) {
     let robot = grid.find(&ROBOT);
     let new_pos = robot + dir;
-    let next = grid.get(&new_pos);
+    let next = grid.get(&new_pos).unwrap();
     match next {
         EMPTY => {
             grid.set(&robot, EMPTY);
@@ -58,16 +58,16 @@ fn move_robot(grid: &mut Grid<char>, dir: Direction) {
         WALL => (),
         BOX => {
             let mut current = new_pos;
-            while grid.get(&current) == BOX {
+            while grid.get(&current).unwrap() == BOX {
                 current += dir;
             }
 
-            if grid.get(&current) == WALL {
+            if grid.get(&current).unwrap() == WALL {
                 return;
             }
             grid.set(&robot, EMPTY);
 
-            if grid.get(&current) == EMPTY {
+            if grid.get(&current).unwrap() == EMPTY {
                 while current != new_pos {
                     current -= dir;
                     grid.set(&(current + dir), BOX);
@@ -120,7 +120,7 @@ fn part2(input: &str) -> i64 {
 fn move_robot_2(grid: &mut Grid<char>, dir: Direction) {
     let robot = grid.find(&ROBOT);
     let new_pos = robot + dir;
-    let next = grid.get(&new_pos);
+    let next = grid.get(&new_pos).unwrap();
     match next {
         EMPTY => {
             grid.set(&robot, EMPTY);
@@ -130,16 +130,18 @@ fn move_robot_2(grid: &mut Grid<char>, dir: Direction) {
         OPEN_BOX | CLOSE_BOX => match dir {
             Direction::Left | Direction::Right => {
                 let mut current = new_pos;
-                while grid.get(&current) == OPEN_BOX || grid.get(&current) == CLOSE_BOX {
+                while grid.get(&current).unwrap() == OPEN_BOX
+                    || grid.get(&current).unwrap() == CLOSE_BOX
+                {
                     current += dir * 2;
                 }
 
-                if grid.get(&current) == WALL {
+                if grid.get(&current).unwrap() == WALL {
                     return;
                 }
                 grid.set(&robot, EMPTY);
 
-                if grid.get(&current) == EMPTY {
+                if grid.get(&current).unwrap() == EMPTY {
                     while current != new_pos {
                         if dir == Direction::Left {
                             grid.set(&current, OPEN_BOX);
@@ -156,8 +158,8 @@ fn move_robot_2(grid: &mut Grid<char>, dir: Direction) {
             Direction::Up | Direction::Down => {
                 let mut boxes = VecDeque::new();
                 let mut queue = VecDeque::new();
-                queue.push_back((new_pos, grid.get(&new_pos)));
-                if grid.get(&new_pos) == OPEN_BOX {
+                queue.push_back((new_pos, grid.get(&new_pos).unwrap()));
+                if grid.get(&new_pos).unwrap() == OPEN_BOX {
                     queue.push_back((new_pos + Direction::Right, CLOSE_BOX));
                 } else {
                     queue.push_back((new_pos + Direction::Left, OPEN_BOX));
@@ -170,10 +172,16 @@ fn move_robot_2(grid: &mut Grid<char>, dir: Direction) {
                         continue;
                     }
                     boxes.push_back((pos, b));
-                    queue.push_back((pos + dir, grid.get(&(pos + dir))));
+                    queue.push_back((pos + dir, grid.get(&(pos + dir)).unwrap()));
 
-                    let right = (pos + Direction::Right, grid.get(&(pos + Direction::Right)));
-                    let left = (pos + Direction::Left, grid.get(&(pos + Direction::Left)));
+                    let right = (
+                        pos + Direction::Right,
+                        grid.get(&(pos + Direction::Right)).unwrap(),
+                    );
+                    let left = (
+                        pos + Direction::Left,
+                        grid.get(&(pos + Direction::Left)).unwrap(),
+                    );
                     if b == OPEN_BOX && !queue.contains(&right) {
                         queue.push_back(right);
                     }

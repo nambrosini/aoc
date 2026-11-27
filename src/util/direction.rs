@@ -11,9 +11,10 @@ pub enum Direction {
     Right,
 }
 
+#[derive(Debug, PartialEq, Eq)]
 pub enum Rotation {
-    Clock,
-    Counter,
+    Right,
+    Left,
     None,
 }
 
@@ -30,14 +31,37 @@ impl Direction {
     pub fn rotate(&self, rotation: &Rotation) -> Direction {
         match (self, rotation) {
             (dir, Rotation::None) => *dir,
-            (Direction::Up, Rotation::Clock) => Direction::Right,
-            (Direction::Right, Rotation::Clock) => Direction::Down,
-            (Direction::Down, Rotation::Clock) => Direction::Left,
-            (Direction::Left, Rotation::Clock) => Direction::Up,
-            (Direction::Up, Rotation::Counter) => Direction::Left,
-            (Direction::Left, Rotation::Counter) => Direction::Down,
-            (Direction::Down, Rotation::Counter) => Direction::Right,
-            (Direction::Right, Rotation::Counter) => Direction::Up,
+            (Direction::Up, Rotation::Right) => Direction::Right,
+            (Direction::Right, Rotation::Right) => Direction::Down,
+            (Direction::Down, Rotation::Right) => Direction::Left,
+            (Direction::Left, Rotation::Right) => Direction::Up,
+            (Direction::Up, Rotation::Left) => Direction::Left,
+            (Direction::Left, Rotation::Left) => Direction::Down,
+            (Direction::Down, Rotation::Left) => Direction::Right,
+            (Direction::Right, Rotation::Left) => Direction::Up,
+        }
+    }
+
+    pub fn get_rotation(&self, other: &Direction) -> Rotation {
+        match (self, other) {
+            (Direction::Up, Direction::Left)
+            | (Direction::Left, Direction::Down)
+            | (Direction::Down, Direction::Right)
+            | (Direction::Right, Direction::Up) => Rotation::Left,
+            (Direction::Up, Direction::Right)
+            | (Direction::Right, Direction::Down)
+            | (Direction::Down, Direction::Left)
+            | (Direction::Left, Direction::Up) => Rotation::Right,
+            _ => Rotation::None,
+        }
+    }
+
+    pub fn char(&self) -> char {
+        match self {
+            Direction::Up => '^',
+            Direction::Down => 'v',
+            Direction::Left => '<',
+            Direction::Right => '>',
         }
     }
 }
@@ -52,13 +76,7 @@ impl Mul<i64> for Direction {
 
 impl fmt::Display for Direction {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let c = match self {
-            Direction::Up => '^',
-            Direction::Down => 'v',
-            Direction::Left => '<',
-            Direction::Right => '>',
-        };
-        write!(f, "{c}")
+        write!(f, "{}", self.char())
     }
 }
 

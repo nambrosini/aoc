@@ -10,7 +10,6 @@ impl FromStr for Machine {
     type Err = String;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        println!("{s}");
         let split: Vec<&str> = s.split(' ').collect();
         let target: Vec<bool> = split[0][1..split[0].len() - 1]
             .chars()
@@ -18,7 +17,7 @@ impl FromStr for Machine {
             .collect();
 
         let mut buttons = Vec::new();
-        for i in (1..split.len() - 1) {
+        for i in 1..split.len() - 1 {
             let button = split[i];
             let button: Vec<usize> = button[1..button.len() - 1]
                 .split(',')
@@ -59,6 +58,33 @@ impl Machine {
         unreachable!()
     }
 
+    fn shortest_joltage(&self) -> usize {
+        let mut queue: VecDeque<(Vec<usize>, usize)> = VecDeque::new();
+        queue.push_back((vec![0; self.target.len()], 0));
+
+        while let Some((status, steps)) = queue.pop_front() {
+            for button in &self.buttons {
+                let res = Machine::button_joltage_click(&status, &button);
+                if res == self.cost {
+                    return steps + 1;
+                }
+
+                let mut push = true;
+                for (i, x) in res.iter().enumerate() {
+                    if x > &self.cost[i] {
+                        push = false;
+                        break;
+                    }
+                }
+                if push {
+                    queue.push_front((res, steps + 1));
+                }
+            }
+        }
+
+        unreachable!()
+    }
+
     fn button_click(status: &[bool], button: &[usize]) -> Vec<bool> {
         let mut status = status.to_vec();
 
@@ -68,18 +94,30 @@ impl Machine {
 
         status
     }
+
+    fn button_joltage_click(status: &[usize], button: &[usize]) -> Vec<usize> {
+        let mut status = status.to_vec();
+
+        for i in button {
+            status[*i] += 1;
+        }
+
+        status
+    }
 }
 
 fn part1(input: &str) -> usize {
     input
         .lines()
-        .map(|l| Machine::from_str(l).unwrap())
-        .map(|m| m.shortest_path())
+        .map(|l| Machine::from_str(l).unwrap().shortest_path())
         .sum()
 }
 
-fn part2(input: &str) -> i64 {
-    todo!()
+fn part2(input: &str) -> usize {
+    input
+        .lines()
+        .map(|l| Machine::from_str(l).unwrap().shortest_joltage())
+        .sum()
 }
 
 fn main() {

@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fmt::Display;
 use std::ops::{Deref, DerefMut};
 
 use pathfinding::directed::astar::{astar as pf_astar, astar_bag_collect};
@@ -7,6 +8,19 @@ use crate::util::position::Vec2;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Grid<T>(pub Vec<Vec<T>>);
+
+impl<T: Display> Display for Grid<T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        for row in self.iter() {
+            for e in row {
+                write!(f, "{e}")?;
+            }
+            writeln!(f)?;
+        }
+
+        writeln!(f)
+    }
+}
 
 impl<T> Deref for Grid<T> {
     type Target = Vec<Vec<T>>;
@@ -163,12 +177,15 @@ impl<T> Inbound for Grid<T> {
 }
 
 pub trait Read<T> {
-    fn get(&self, pos: &Vec2) -> T;
+    fn get(&self, pos: &Vec2) -> Option<T>;
 }
 
 impl<T: Copy> Read<T> for Grid<T> {
-    fn get(&self, pos: &Vec2) -> T {
-        self[pos.x()][pos.y()]
+    fn get(&self, pos: &Vec2) -> Option<T> {
+        if let Some(row) = self.iter().nth(pos.x()) {
+            return row.get(pos.y()).copied();
+        }
+        None
     }
 }
 
@@ -210,7 +227,7 @@ fn successors<T: PartialEq + Copy>(
             if !grid.inbound(&next) {
                 return None;
             }
-            if blocked.is_some_and(|b| grid.get(&next) == b) {
+            if blocked.is_some_and(|b| grid.get(&next).unwrap() == b) {
                 return None;
             }
             Some((next, 1))

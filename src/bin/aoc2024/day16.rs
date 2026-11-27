@@ -86,7 +86,7 @@ fn bfs(grid: &Grid<char>, start: Vec2, end: Vec2) -> (i64, HashSet<Vec2>) {
         for rotation in &rotations {
             let new_dir = node.dir.rotate(rotation);
             let new_pos = node.pos + new_dir;
-            if grid.get(&new_pos) == '#' {
+            if grid.get(&new_pos).unwrap() == '#' {
                 continue;
             }
             let new_cost = node.cost + if node.dir == new_dir { 1 } else { 1001 };

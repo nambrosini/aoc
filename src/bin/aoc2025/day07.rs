@@ -24,7 +24,7 @@ fn part1(input: &str) -> u64 {
             continue;
         }
 
-        if grid.get(&new_beam) == '^' {
+        if grid.get(&new_beam).unwrap() == '^' {
             split_set.insert(new_beam);
             let new_beam_left = new_beam + Direction::Left;
             if grid.inbound(&new_beam_left) && !queue.contains(&new_beam_left) {
@@ -58,7 +58,7 @@ fn part2(input: &str) -> u64 {
             continue;
         }
 
-        if grid.get(&new_beam) == '^' {
+        if grid.get(&new_beam).unwrap() == '^' {
             count += beam.1;
             let new_beam_left = new_beam + Direction::Left;
             if grid.inbound(&new_beam_left) {

@@ -1,5 +1,5 @@
 use adventofcode::util::{
-    grid::{Find, Grid, Inbound, Parse, Read, astar},
+    grid::{astar, Find, Grid, Inbound, Parse, Read},
     position::Vec2,
 };
 
@@ -13,11 +13,11 @@ fn part1(input: &str) -> usize {
         let len_to_now = i + 2;
         for d in Vec2::DIRECTIONS {
             let pd = *p + d;
-            if !grid.inbound(&pd) || grid.get(&pd) != '#' {
+            if !grid.inbound(&pd) || grid.get(&pd).unwrap() != '#' {
                 continue;
             }
             let new_pos = *p + d * 2;
-            if !grid.inbound(&new_pos) || grid.get(&new_pos) == '#' {
+            if !grid.inbound(&new_pos) || grid.get(&new_pos).unwrap() == '#' {
                 continue;
             }
             let cheat_start_i = path.iter().position(|x| x == &new_pos).unwrap();
